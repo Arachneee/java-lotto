@@ -125,6 +125,7 @@ public class Application {
                 "총 수익률은 "+revenue+"%입니다.");
     }
     public void run(){
+        System.out.println("구입금액을 입력해 주세요.");
         try{
             //투입금액을 받아 금액에 맞게 로또를 사는 기능
             int lottoCount = giveMoney();
@@ -156,7 +157,6 @@ public class Application {
     }
 
     public static void main(String[] args) {
-        System.out.println("구입금액을 입력해 주세요.");
         Application app = new Application();
         app.run();
     }
