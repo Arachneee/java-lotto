@@ -16,7 +16,7 @@ public class Lotto {
             throw new IllegalArgumentException();
         }
     }
-    public int check(Integer[] rottoNumber, int bonusNumber){
+    public int rankCheck(Integer[] rottoNumber, int bonusNumber){
         int rank = 8;
 
         for(Integer num:numbers){
