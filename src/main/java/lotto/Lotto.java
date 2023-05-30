@@ -1,6 +1,7 @@
 package lotto;
 
 import java.util.*;
+import java.util.stream.*;
 
 public class Lotto {
     private final List<Integer> numbers;
@@ -15,11 +16,11 @@ public class Lotto {
             throw new IllegalArgumentException();
         }
     }
-    public int check(int[] rottoNumber, int bonusNumber){
+    public int check(Integer[] rottoNumber, int bonusNumber){
         int rank = 8;
 
         for(Integer num:numbers){
-            if (Arrays.asList(rottoNumber).contains(num)){
+            if (Arrays.<Integer>asList(rottoNumber).contains(num)){
                 rank--;
             }
         }

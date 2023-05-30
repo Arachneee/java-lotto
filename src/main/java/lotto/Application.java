@@ -10,7 +10,7 @@ public class Application {
         System.out.println("[ERROR] "+e.getMessage());
     }
 
-    static void printStatus(ArrayList<Lotto> lottoList,int[] rottoNumber,int bonusNumber){
+    static void printStatus(ArrayList<Lotto> lottoList,Integer[] rottoNumber,int bonusNumber){
         int[] rankList = new int[5];
 
         HashMap<Integer,Integer> dangchumMap = new HashMap<>();
@@ -32,7 +32,7 @@ public class Application {
 
         double revenue = Math.round((totalMoney/(lottoList.size()*1000))*100)/100.0;
 
-        System.out.printf("당첨 통계\n"+
+        System.out.println("당첨 통계\n"+
                 "---\n" +
                 "3개 일치 (5,000원) - "+rankList[4]+"개\n" +
                 "4개 일치 (50,000원) - "+rankList[3]+"개\n" +
@@ -41,6 +41,8 @@ public class Application {
                 "6개 일치 (2,000,000,000원) - "+rankList[0]+"개\n" +
                 "총 수익률은 "+revenue+"%입니다.");
     }
+
+
 
     public static void main(String[] args) {
         System.out.println("구입금액을 입력해 주세요.");
@@ -63,7 +65,7 @@ public class Application {
                 lottoList.add(new Lotto(numbers));
             }
 
-            int[] rottoNumber = new int[6];
+            Integer[] rottoNumber = new Integer[6];
 
             System.out.printf("%n당첨 번호를 입력해 주세요%n");
             StringTokenizer st = new StringTokenizer(Console.readLine(),",");
@@ -71,20 +73,20 @@ public class Application {
             if (st.countTokens() !=6) throw new IllegalArgumentException("6개의 번호를 입력해주세요.");
 
             for(int j=0;j<6;j++){
-                int n = Integer.parseInt(st.nextToken());
+                String nextNumber = st.nextToken();
+                int n = Integer.parseInt(nextNumber);
 
                 if (n<0 || n>45) throw new IllegalArgumentException("로또 번호는 1부터 45 사이의 숫자여야 합니다.");
 
-                rottoNumber[j] = Integer.parseInt(st.nextToken());
+                rottoNumber[j] = Integer.parseInt(nextNumber);
             }
 
             System.out.printf("%n보너스 번호를 입력해 주세요.%n");
             int bonusNumber = Integer.parseInt(Console.readLine());
 
-            if (bonusNumber<0 || bonusNumber>45) throw new IllegalArgumentException("로또 번호는 1부터 45 사이의 숫자여야 합니다.");
+            if ((bonusNumber<0) || (bonusNumber>45)) throw new IllegalArgumentException("로또 번호는 1부터 45 사이의 숫자여야 합니다.");
 
             printStatus(lottoList,rottoNumber,bonusNumber);
-
 
 
         } catch (IllegalArgumentException iae){
