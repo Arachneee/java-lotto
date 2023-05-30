@@ -1,6 +1,6 @@
 package lotto;
 
-import java.util.List;
+import java.util.*;
 
 public class Lotto {
     private final List<Integer> numbers;
@@ -14,6 +14,21 @@ public class Lotto {
         if (numbers.size() != 6) {
             throw new IllegalArgumentException();
         }
+    }
+    public int check(int[] rottoNumber, int bonusNumber){
+        int rank = 8;
+
+        for(Integer num:numbers){
+            if (Arrays.asList(rottoNumber).contains(num)){
+                rank--;
+            }
+        }
+
+        if (rank==2) return --rank;
+
+        if (rank==3 && Arrays.asList(rottoNumber).contains(bonusNumber)) return --rank;
+
+        return rank;
     }
 
     // TODO: 추가 기능 구현
