@@ -7,10 +7,10 @@ import java.util.*;
 
 public class Application {
     //에러메시지 출력
-    static void printErr(Exception e){
+    private void printErr(Exception e){
         System.out.println("[ERROR] "+e.getMessage());
     }
-    static Integer giveMoney(){
+    private Integer giveMoney(){
         String input = Console.readLine();
 
         //양의 정수만 입력받기
@@ -29,7 +29,7 @@ public class Application {
     }
 
     //로또 생성
-    static ArrayList<Lotto> makeLotto(int lottoCount){
+    private ArrayList<Lotto> makeLotto(int lottoCount){
         System.out.printf("%n%d개를 구매했습니다.%n",lottoCount);
 
         ArrayList<Lotto> lottoList = new ArrayList<>();
@@ -45,7 +45,7 @@ public class Application {
     }
 
     //당첨번호 입력
-    static Integer[] makeDangchum(){
+    private Integer[] makeDangchum(){
         System.out.printf("%n당첨 번호를 입력해 주세요%n");
 
         Integer[] rottoNumber = new Integer[6];
@@ -67,7 +67,7 @@ public class Application {
 
 
     //보너스 번호 받기
-    static int makeBonus(){
+    private int makeBonus(){
         System.out.printf("%n보너스 번호를 입력해 주세요.%n");
         int bonusNumber = Integer.parseInt(Console.readLine());
 
@@ -77,7 +77,7 @@ public class Application {
     }
 
     // 당첨 순위별 당첨 금액 맵핑
-    static HashMap<Integer,Integer> makeWinneramount(){
+    private HashMap<Integer,Integer> makeWinneramount(){
         HashMap<Integer,Integer> dangchumMap = new HashMap<>();
         dangchumMap.put(1,2000000000);
         dangchumMap.put(2,30000000);
@@ -88,7 +88,7 @@ public class Application {
     }
 
     // 수익률 계산
-    static double calrevenue(int lottoCount,int[] rankList,HashMap<Integer,Integer> dangchumMap){
+    private double calrevenue(int lottoCount,int[] rankList,HashMap<Integer,Integer> dangchumMap){
         double totalMoney = 0;
         for(int i=0;i<rankList.length;i++){
             int count = rankList[i];
@@ -100,7 +100,7 @@ public class Application {
 
 
     //로또 순위별 수량 계산
-    static int[] makeRank(ArrayList<Lotto> lottoList,Integer[] rottoNumber,int bonusNumber){
+    private int[] makeRank(ArrayList<Lotto> lottoList,Integer[] rottoNumber,int bonusNumber){
         int[] rankList = new int[5];
         for(Lotto lotto:lottoList){
             //로또 순위 계산
@@ -114,7 +114,7 @@ public class Application {
     }
 
     //통계값 출력
-    static void printStatus(int[] rankList, double revenue){
+    private void printStatus(int[] rankList, double revenue){
         System.out.println("당첨 통계\n"+
                 "---\n" +
                 "3개 일치 (5,000원) - "+rankList[4]+"개\n" +
@@ -127,34 +127,34 @@ public class Application {
 
     public static void main(String[] args) {
         System.out.println("구입금액을 입력해 주세요.");
-
+        Application app = new Application();
         try{
             //투입금액을 받아 금액에 맞게 로또를 사는 기능
-            int lottoCount = giveMoney();
+            int lottoCount = app.giveMoney();
 
             //로또를 수량에 맞게 만드는 기능
-            ArrayList<Lotto> lottoList = makeLotto(lottoCount);
+            ArrayList<Lotto> lottoList = app.makeLotto(lottoCount);
 
             //당첨번호를 입력받는 기능
-            Integer[] rottoNumber = makeDangchum();
+            Integer[] rottoNumber = app.makeDangchum();
 
             //보너스번호 입력받는 기능
-            int bonusNumber = makeBonus();
+            int bonusNumber = app.makeBonus();
 
             //당첨등수별 당첨 금액 맵핑 기능
-            HashMap<Integer,Integer> dangchumMap = makeWinneramount();
+            HashMap<Integer,Integer> dangchumMap = app.makeWinneramount();
 
             //로또의 순위 매기는 기능
-            int[] rankList = makeRank(lottoList,rottoNumber,bonusNumber);
+            int[] rankList = app.makeRank(lottoList,rottoNumber,bonusNumber);
 
             //수익률 계산기능
-            double revenue = calrevenue(lottoCount,rankList,dangchumMap);
+            double revenue = app.calrevenue(lottoCount,rankList,dangchumMap);
 
             //통계치 출력 기능
-            printStatus(rankList,revenue);
+            app.printStatus(rankList,revenue);
         } catch (IllegalArgumentException iae){
             //에러 메시지 출력
-            printErr(iae);
+            app.printErr(iae);
         }
     }
 }
