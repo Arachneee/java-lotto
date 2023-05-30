@@ -10,7 +10,9 @@ public class Application {
         System.out.println("[ERROR] "+e.getMessage());
     }
     static Integer giveMoney(){
-        int money = Integer.parseInt(Console.readLine());
+        String input = Console.readLine();
+        if(!input.matches("^[1-9]\\d*$")) throw  new IllegalArgumentException("숫자를 입력하세요.");
+        int money = Integer.parseInt(input);
         Integer lottoCount;
 
         if (money%1000 != 0)
@@ -76,7 +78,7 @@ public class Application {
             totalMoney += Double.valueOf(dangchumMap.get(i+1))*count;
         }
 
-        return Math.round((totalMoney/(lottoCount*1000))*100)/100.0;
+        return Math.round(((totalMoney/(lottoCount*1000))*100)*100)/100.0;
     }
 
     static int[] makeRank(ArrayList<Lotto> lottoList,Integer[] rottoNumber,int bonusNumber){
