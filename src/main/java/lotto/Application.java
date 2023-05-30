@@ -124,37 +124,40 @@ public class Application {
                 "6개 일치 (2,000,000,000원) - "+rankList[0]+"개\n" +
                 "총 수익률은 "+revenue+"%입니다.");
     }
+    public void run(){
+        try{
+            //투입금액을 받아 금액에 맞게 로또를 사는 기능
+            int lottoCount = giveMoney();
+
+            //로또를 수량에 맞게 만드는 기능
+            ArrayList<Lotto> lottoList = makeLotto(lottoCount);
+
+            //당첨번호를 입력받는 기능
+            Integer[] rottoNumber = makeDangchum();
+
+            //보너스번호 입력받는 기능
+            int bonusNumber = makeBonus();
+
+            //당첨등수별 당첨 금액 맵핑 기능
+            HashMap<Integer,Integer> dangchumMap = makeWinneramount();
+
+            //로또의 순위 매기는 기능
+            int[] rankList = makeRank(lottoList,rottoNumber,bonusNumber);
+
+            //수익률 계산기능
+            double revenue = calrevenue(lottoCount,rankList,dangchumMap);
+
+            //통계치 출력 기능
+            printStatus(rankList,revenue);
+        } catch (IllegalArgumentException iae){
+            //에러 메시지 출력
+            printErr(iae);
+        }
+    }
 
     public static void main(String[] args) {
         System.out.println("구입금액을 입력해 주세요.");
         Application app = new Application();
-        try{
-            //투입금액을 받아 금액에 맞게 로또를 사는 기능
-            int lottoCount = app.giveMoney();
-
-            //로또를 수량에 맞게 만드는 기능
-            ArrayList<Lotto> lottoList = app.makeLotto(lottoCount);
-
-            //당첨번호를 입력받는 기능
-            Integer[] rottoNumber = app.makeDangchum();
-
-            //보너스번호 입력받는 기능
-            int bonusNumber = app.makeBonus();
-
-            //당첨등수별 당첨 금액 맵핑 기능
-            HashMap<Integer,Integer> dangchumMap = app.makeWinneramount();
-
-            //로또의 순위 매기는 기능
-            int[] rankList = app.makeRank(lottoList,rottoNumber,bonusNumber);
-
-            //수익률 계산기능
-            double revenue = app.calrevenue(lottoCount,rankList,dangchumMap);
-
-            //통계치 출력 기능
-            app.printStatus(rankList,revenue);
-        } catch (IllegalArgumentException iae){
-            //에러 메시지 출력
-            app.printErr(iae);
-        }
+        app.run();
     }
 }
